@@ -8,6 +8,7 @@ struct Node{
     // constructor
     Node(int val){
         data = val ;
+        //cout << "children size: "<< children.size() << endl ;
     }
 };
 
@@ -49,8 +50,12 @@ void displayTree(Node* node){
     }
 }
 
-
 void sizeOfGenericTree(Node* node, int &countNode){
+
+    if(node == NULL){
+        return ;
+    }
+
     countNode += 1 ;
 
     for(Node* child: node -> children){
@@ -59,6 +64,11 @@ void sizeOfGenericTree(Node* node, int &countNode){
 }
 
 int numberOfNodesInGenericTree(Node* node){
+
+    if(node == NULL){
+        return 0 ;
+    }
+
     int countNumberOfNodesInSubtree  = 0 ;
 
     for(Node* child: node -> children){
@@ -68,6 +78,54 @@ int numberOfNodesInGenericTree(Node* node){
     return countNumberOfNodesInSubtree + 1 ; // 1 is added because root node of the subtree is included
 }
 
+void maximumInTree1(Node* node, int &maxi){
+
+    if(node == NULL){
+        return ;
+    }
+
+    if(node -> data > maxi){
+        maxi = node -> data ;
+    }
+
+    for(Node* child: node -> children){
+        maximumInTree1(child, maxi) ;
+    }
+
+}
+
+int maximumInTree2(Node* node){
+
+    if(node == NULL){
+        return INT_MIN ;
+    }
+
+    int maxi = node -> data ;
+
+    for(Node* child: node -> children){
+        int subtreeMaxi = maximumInTree2(child) ;
+        maxi = max(maxi, subtreeMaxi) ;
+    }
+
+    return maxi ;
+}
+
+// hieght of the tree edges wise i.e. how far is the leaf node from the root node according to edges
+int heightOrDepthOfTree(Node* node){
+
+    if(node == NULL || node -> children.size() == 0){ // no node or leaf node 
+        return 0 ;
+    }
+
+    int depth = 0 ;
+
+    for(Node* child: node -> children){
+        int subtreeDepth = heightOrDepthOfTree(child) ;
+        depth = max(depth, subtreeDepth) ;
+    }
+
+    return depth + 1 ; 
+}
 
 int main()
 {
@@ -75,8 +133,19 @@ int main()
     int n = inputArray.size() ;
     Node *root = buildTree(inputArray, n) ;
     displayTree(root) ;
+
+
     int countNode = 0 ;
     sizeOfGenericTree(root, countNode) ;
     cout<<"Size of the tree is: "<< countNode << endl ;
     cout<<"Size of the tree is: "<< numberOfNodesInGenericTree(root) << endl ;
+
+    int maxi = INT_MIN ;
+    maximumInTree1(root, maxi) ;
+    cout<<"Maximum in the tree is: "<< maxi << endl ;
+    cout<<"Maximum in the tree is: "<< maximumInTree2(root) << endl ;
+
+    cout<<"Height or Depth of the tree is: "<< heightOrDepthOfTree(root) << endl ;
+
+
 }
