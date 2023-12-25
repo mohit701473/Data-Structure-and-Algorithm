@@ -4,13 +4,12 @@ using namespace std ;
 struct Node{
     int data ;
     vector<Node*> children ;
-};
 
-Node* newNode(int val){
-    Node* temp = new Node ;
-    temp -> data = val ;
-    return temp ;
-}
+    // constructor
+    Node(int val){
+        data = val ;
+    }
+};
 
 
 Node* buildTree(vector<int> &inputArray, int size){
@@ -22,7 +21,7 @@ Node* buildTree(vector<int> &inputArray, int size){
             st.pop() ;
         }
         else{
-            Node* temp = newNode(inputArray[i]) ;
+            Node* temp =  new Node(inputArray[i]) ;
             if(st.size() == 0){
                 root = temp ;
             }
@@ -36,7 +35,7 @@ Node* buildTree(vector<int> &inputArray, int size){
     return root ;
 }
 
-void displayEulearTreePath(Node* node){
+void displayTree(Node* node){
     cout<< node -> data << " -> " ;
 
     for(Node* child: node->children){
@@ -46,16 +45,38 @@ void displayEulearTreePath(Node* node){
     cout << endl ;
 
     for(Node* child: node -> children){
-        displayEulearTreePath(child) ;
+        displayTree(child) ;
     }
+}
+
+
+void sizeOfGenericTree(Node* node, int &countNode){
+    countNode += 1 ;
+
+    for(Node* child: node -> children){
+        sizeOfGenericTree(child, countNode) ;
+    }
+}
+
+int numberOfNodesInGenericTree(Node* node){
+    int countNumberOfNodesInSubtree  = 0 ;
+
+    for(Node* child: node -> children){
+        countNumberOfNodesInSubtree += numberOfNodesInGenericTree(child) ;
+    }
+
+    return countNumberOfNodesInSubtree + 1 ; // 1 is added because root node of the subtree is included
 }
 
 
 int main()
 {
-    //cout<<"inside main"<<endl; 
     vector<int> inputArray = {10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120, -1, -1, 90, -1, -1, 40, 100, -1, -1, -1} ;
     int n = inputArray.size() ;
     Node *root = buildTree(inputArray, n) ;
-    displayEulearTreePath(root) ;
+    displayTree(root) ;
+    int countNode = 0 ;
+    sizeOfGenericTree(root, countNode) ;
+    cout<<"Size of the tree is: "<< countNode << endl ;
+    cout<<"Size of the tree is: "<< numberOfNodesInGenericTree(root) << endl ;
 }
