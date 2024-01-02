@@ -66,32 +66,42 @@ void levelOrderTraversalLevlWise_usingOneQueue(Node* node){
     }
 }
 
-void mirrorOfGenericTree(Node* node){
-    if(node == NULL) return ;
 
-    for(Node* child: node -> children){
-        mirrorOfGenericTree(child) ;
+Node* getTail(Node* node){
+    //if(node == NULL) return NULL ;
+
+    while(node -> children.size() > 0){
+        node = node -> children[0] ;
     }
 
-    reverse(node -> children.begin(), node -> children.end()) ;
+    return node ;
+
 }
 
-void removeLeafesNodesFormGenericTree(Node* node){
-
-    if(node == NULL) return ;
-
-    for(int i = node -> children.size() - 1 ; i>=0 ; i--){
-        Node* child = node -> children[i] ;
-        if(child -> children.size() == 0){
-            // vector<Node*>::iterator it ;
-            // it = node -> children.begin() + i ;
-            auto it = node -> children.begin() + i ;
-            node -> children.erase(it) ;
-        }
-    }
+void linearizeThegenericTree(Node* node){
 
     for(Node* child: node -> children){
-        removeLeafesNodesFormGenericTree(child) ;
+        linearizeThegenericTree(child) ;
+    }
+
+    while(node -> children.size() > 1){
+        int idx = node -> children.size() - 1 ;
+
+        // store the last child 
+        Node* last_child = node -> children[idx] ;
+
+        // remove the last child 
+        auto it = node -> children.end() - 1 ;
+        node -> children.erase(it) ;
+
+        // get the second last child
+        Node* second_last_child  = node -> children[idx-1] ;
+
+        // now find the tail of the second last child
+        Node* tail = getTail(second_last_child) ;
+
+        // now add the last_child into the tail of the second_last_child
+        tail -> children.push_back(last_child) ;
     }
 }
 
@@ -102,9 +112,7 @@ int main()
     int n = inputArray.size() ;
     Node *root = buildTree(inputArray, n) ;
 
-    mirrorOfGenericTree(root) ;
-    levelOrderTraversalLevlWise_usingOneQueue(root) ;
-
-    removeLeafesNodesFormGenericTree(root) ;
+    // approch - 1
+    linearizeThegenericTree(root) ;
     levelOrderTraversalLevlWise_usingOneQueue(root) ;
 }

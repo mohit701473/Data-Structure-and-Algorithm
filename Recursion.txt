@@ -1,0 +1,15 @@
+(1) When we apply recursion ?
+ans. -> when situation of Try All The Possible Ways and in this count ways or best(max or min) type problem occurs
+            then we apply recursion
+
+(2) Trick for recurance realation in recursion.
+step -> 1: Try to represent the problem in term of index if array probelm then ok but for other problems represent 
+           in index.
+step -> 2: Do all possible stuffs on that index according to the problem statement.
+step -> 3: sum up all sutffs -> if question says count all ways 
+           take minimum of all stuffs -> if question says find minimum
+           take maximum of all stuffs -> if question says find maximum
+
+
+(3) Whenever you are using recursion in code you should have confidence that the recursion can do all the 
+things and you have to solve only one sub-problem which is the top most sub-problem.
