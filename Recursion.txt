@@ -13,3 +13,9 @@ step -> 3: sum up all sutffs -> if question says count all ways
 
 (3) Whenever you are using recursion in code you should have confidence that the recursion can do all the 
 things and you have to solve only one sub-problem which is the top most sub-problem.
+
+(4) Returning value of recursion: what the value the recursion is returning.
+
+Important point for recursion:
+    (I) Focus on that one subproblem and faith that all other subproblems are solved by recursion.
+    (II) If recursion is returning any vlaue then you should konw what the value is recursion ius returning.

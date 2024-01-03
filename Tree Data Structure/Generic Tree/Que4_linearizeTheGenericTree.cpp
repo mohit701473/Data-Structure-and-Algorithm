@@ -107,9 +107,39 @@ void linearizeThegenericTree(Node* node){
     }
 }
 
+
+// approch - 2
+// T.C. = O(n)
 Node* linearize_the_genericTree(Node* node){
-    
+    if(node -> children.size() == 0)
+        return node ;
+
+    int last_node_idx = node -> children.size() - 1 ;
+    Node* last_ki_tail = linearize_the_genericTree(node -> children[last_node_idx]) ;
+
+    while(node -> children.size() > 1){
+        int idx = node -> children.size() - 1 ;
+
+        // store the last child 
+        Node* last_child = node -> children[idx] ;
+
+        // remove the last child 
+        auto it = node -> children.end() - 1 ;
+        node -> children.erase(it) ;
+
+        // get the second last child
+        Node* second_last_child  = node -> children[idx-1] ;
+
+        // now find the tail of the second last child
+        Node* secoond_last_ki_tail = linearize_the_genericTree(second_last_child) ;
+
+        // now add the last_child into the tail of the second_last_child
+        secoond_last_ki_tail -> children.push_back(last_child) ;
+    }
+
+    return last_ki_tail ;
 }
+
 
 int main()
 {
@@ -118,6 +148,6 @@ int main()
     Node *root = buildTree(inputArray, n) ;
 
     
-    linearizeThegenericTree(root) ;
+    linearize_the_genericTree(root) ;
     levelOrderTraversalLevlWise_usingOneQueue(root) ;
 }

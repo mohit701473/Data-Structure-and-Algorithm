@@ -127,6 +127,23 @@ int heightOrDepthOfTree(Node* node){
     return depth + 1 ; 
 }
 
+
+int find_value(Node* node, int val){
+    if(node -> data == val)
+        return true ;
+
+    int ans = false ;
+    for(Node* child: node -> children){
+        int res = find_value(child, val) ;
+        ans = ans | res ;
+
+        if(ans) return ans ; 
+    }
+
+    return ans ;
+}
+
+
 int main()
 {
     vector<int> inputArray = {10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120, -1, -1, 90, -1, -1, 40, 100, -1, -1, -1} ;
@@ -146,6 +163,8 @@ int main()
     cout<<"Maximum in the tree is: "<< maximumInTree2(root) << endl ;
 
     cout<<"Height or Depth of the tree is: "<< heightOrDepthOfTree(root) << endl ;
+
+    cout << find_value(root, 1100) ; 
 
 
 }
