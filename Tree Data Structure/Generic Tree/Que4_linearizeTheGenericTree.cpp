@@ -67,6 +67,8 @@ void levelOrderTraversalLevlWise_usingOneQueue(Node* node){
 }
 
 
+// approch - 1
+// T.C. = O(n^2)
 Node* getTail(Node* node){
     //if(node == NULL) return NULL ;
 
@@ -105,6 +107,9 @@ void linearizeThegenericTree(Node* node){
     }
 }
 
+Node* linearize_the_genericTree(Node* node){
+    
+}
 
 int main()
 {
@@ -112,7 +117,7 @@ int main()
     int n = inputArray.size() ;
     Node *root = buildTree(inputArray, n) ;
 
-    // approch - 1
+    
     linearizeThegenericTree(root) ;
     levelOrderTraversalLevlWise_usingOneQueue(root) ;
 }
