@@ -84,6 +84,42 @@ void postorderTraversal(Node* node){
     cout << node -> data << " " ;
 }
 
+void itrativePreorderPostorder(Node* node){
+    vector<int> preorder ;
+    vector<int> postorder ;
+
+    stack<pair<Node*, int>> st ;
+    st.push({node, -1}) ;
+
+    while(!st.empty()){
+        pair<Node*, int> peak = st.top() ;
+
+        if(peak.second == -1){
+            st.top().second++ ;
+            preorder.push_back(peak.first -> data) ;
+        }
+        else if(peak.second == peak.first -> children.size()){
+            postorder.push_back(peak.first -> data) ;
+            st.pop() ;
+        }
+        else{
+            st.top().second++ ;
+            pair<Node*, int> child_pair = make_pair(peak.first -> children[peak.second], -1) ;
+            st.push(child_pair) ;
+        }
+    }
+
+    cout << "Preorder traversl is: "<< endl ;
+    for(int i=0 ; i<preorder.size() ; i++){
+        cout << preorder[i] << " " ;
+    } cout << endl ;
+
+    cout << "Postorder traversl is: "<< endl ;
+    for(int i=0 ; i<postorder.size() ; i++){
+        cout << postorder[i] << " " ;
+    }cout << endl ;
+}
+
 void levelOrderTraversal(Node* node){
     if(node == NULL) return ;
 
@@ -252,6 +288,9 @@ int main()
     cout << "Postorder traversal of the tree is:" << endl ;
     postorderTraversal(root) ;
     cout << endl ;
+
+    cout << "Itrative per and post order traversal are:" << endl ;
+    itrativePreorderPostorder(root) ;
 
     cout<< "Level order traversal is: "<< endl ;
     levelOrderTraversal(root) ;
