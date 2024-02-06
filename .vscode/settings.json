@@ -5,7 +5,11 @@
         "ostream": "cpp",
         "deque": "cpp",
         "string": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "array": "cpp",
+        "any": "cpp",
+        "string_view": "cpp",
+        "regex": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
