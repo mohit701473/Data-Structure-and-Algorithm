@@ -1,0 +1,5 @@
+Diifferents Approchs to Solve the probles on the array
+
+1 -> If the questions like subarrays are comes then you have the following approches
+    (I)  PrefixSum Approch
+    (II) Sliding Window Approch
