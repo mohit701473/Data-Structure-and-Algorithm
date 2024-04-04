@@ -2,6 +2,64 @@
 https://leetcode.com/problems/word-search/description/
 
 
+
+class Solution {
+public:
+
+    bool dfs(int i, int j, vector<vector<char>>& board, string &word, int idx){
+        if(idx >= word.size()){
+            return true ;
+        }
+
+        char temp = board[i][j] ;
+        board[i][j] = '$' ;
+
+        int m = board.size(), n = board[0].size() ;
+        int dRow[] = {-1, 1, 0, 0} ;
+        int dCol[] = {0, 0, -1, 1} ;
+
+        for(int k=0 ; k<4 ; k++){
+            int nb_i = i + dRow[k] ;
+            int nb_j = j + dCol[k] ;
+
+            if(nb_i >= 0 && nb_i < m && nb_j >= 0 && nb_j < n){
+                if(word[idx] == board[nb_i][nb_j]){
+                    if(dfs(nb_i, nb_j, board, word, idx+1)) {
+                        return true ;
+                    }
+                }
+            }
+        }
+
+        board[i][j] = temp ;
+        return false ;
+    }
+
+
+    bool exist(vector<vector<char>>& board, string word) {
+        int len = word.size() ;
+        int idx = 0 ;
+        int m = board.size(), n = board[0].size() ;
+        //vector<vector<int>> vis(m, vector<int> (n, 0)) ;
+
+        for(int i=0 ; i<m ; i++){
+            for(int j=0 ; j<n ; j++){
+                if(board[i][j] == word[idx]){
+                    if(dfs(i, j, board, word, idx+1)){
+                        return true ;
+                    }
+                }
+            }
+        }
+
+        return false ;
+    }
+};
+
+
+
+
+
 class Solution {
 public:
 
