@@ -1,7 +1,8 @@
 // LeetCode -> 2751. Robot Collisions
 
 /*
-location -> Data-Structure-and-Algorithm/Stack/2751. Robot Collisions.cpp
+location -> https://github.com/mohit701473/Data-Structure-and-Algorithm/blob/main/Stack/2751.%20Robot%20Collisions.cpp
+
 
 Approch -> Sorting + Stack
 
