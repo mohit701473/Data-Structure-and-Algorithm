@@ -10,6 +10,17 @@ Intution: sort the position vector bcz take an example positions = [5,1,3,2] so 
           but it might be possible that some other robots are persent in between these two positions
           so if we sort the positions then we sort this type of problem is not occur
 
+          one thing we can also do here like we can create a
+          actual index ko number line ki position ke hisab se sort kr do 
+          example -> positions = [5,1,3,2]
+          here 5, 1, 3, 2 are the number line positions of the robots and 
+          [5,1,3,2]
+           0,1,2,3 
+          0, 1, 2, 3 are the actual indexs of the positions 
+          so create a new vector named pos and insert this indexes in them and sort this pos vector
+          based on the position of the robots on the number line i.e. create or write your own comparator
+          function
+
           now check when the collosion occur between two robots
           any robot can move in two direction right(R) or left(L) so if we check for collosion then 
           we have to check for two robots i.e there are four combination availabe
@@ -112,5 +123,60 @@ public:
         }
 
         return survivedRobots;
+    }
+};
+
+
+
+
+
+//Using Stack
+//T.C : O(nlogn)
+//T.C : O(n)
+class Solution {
+public:
+    vector<int> survivedRobotsHealths(vector<int>& positions, vector<int>& healths, string directions) {
+        int n = positions.size();
+        vector<int> indices(n);
+        
+        iota(indices.begin(), indices.end(), 0); //This will fill the array as -> 0, 1, 2, 3, 4, n-1
+        stack<int> st;
+
+        auto lambda = [&](int i, int j) {
+            return positions[i] < positions[j];
+        };
+
+        sort(begin(indices), end(indices), lambda);
+
+        vector<int> result;
+        for (int currentIndex : indices) {
+            if (directions[currentIndex] == 'R') {
+                st.push(currentIndex);
+            } else {
+                while (!st.empty() && healths[currentIndex] > 0) {
+                    int topIndex = st.top();
+                    st.pop();
+
+                    if (healths[topIndex] > healths[currentIndex]) {
+                        healths[topIndex] -= 1;
+                        healths[currentIndex] = 0;
+                        st.push(topIndex);
+                    } else if (healths[topIndex] < healths[currentIndex]) {
+                        healths[currentIndex] -= 1;
+                        healths[topIndex] = 0;
+                    } else {
+                        healths[currentIndex] = 0;
+                        healths[topIndex] = 0;
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < n; ++i) {
+            if (healths[i] > 0) {
+                result.push_back(healths[i]);
+            }
+        }
+        return result;
     }
 };
