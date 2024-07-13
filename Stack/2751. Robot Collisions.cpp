@@ -61,7 +61,7 @@ Intution: sort the position vector bcz take an example positions = [5,1,3,2] so 
 
 T.C. = O(Nlog(N) +
        sort(pos.begin(), pos.end());    => O(Nlog(N))
-       step -> 2: processign with stack => O(2*N)
+       step -> 2: processign with stack => O(2*N) bcz any index is visited at most twice
        sort(st.begin(), st.end());      => O(Nlog(N))
 
 S.C. = O(2*N + 2*N + N) ~~ O(N)
