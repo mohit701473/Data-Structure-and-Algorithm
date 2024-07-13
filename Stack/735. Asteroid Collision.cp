@@ -1,11 +1,9 @@
-// LeetCode -> 735. Asteroid Collision
-
-
 /*
+Location -> https://github.com/mohit701473/Data-Structure-and-Algorithm/blob/main/Stack/735.%20Asteroid%20Collision.cp
+
 Similar Question -> https://leetcode.com/problems/robot-collisions/description/
 Approch of this question is writtin in the Similar Question
 */
-
 class Solution {
 public:
     vector<int> asteroidCollision(vector<int>& asteroids) {
