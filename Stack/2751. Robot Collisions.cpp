@@ -3,7 +3,6 @@
 /*
 location -> https://github.com/mohit701473/Data-Structure-and-Algorithm/blob/main/Stack/2751.%20Robot%20Collisions.cpp
 
-
 Approch -> Sorting + Stack
 
 Intution: sort the position vector bcz take an example positions = [5,1,3,2] so when u do
