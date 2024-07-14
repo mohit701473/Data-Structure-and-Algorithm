@@ -1,5 +1,7 @@
 // LeetCode -> 726. Number of Atoms
+https://leetcode.com/problems/number-of-atoms/description/
 
+https://github.com/mohit701473/Data-Structure-and-Algorithm/blob/main/Stack/726.%20Number%20of%20Atoms.cpp
 /*
 Approch -> Stack + Sorting + HashMap
 
