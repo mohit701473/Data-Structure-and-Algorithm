@@ -5,7 +5,7 @@ https://leetcode.com/problems/find-valid-matrix-given-row-and-column-sums/descri
 Test Cases -> rowSum = [4,12,10,1,0]
               colSum = [1,0,3,16,7]
 
-T.C. = O(n * m)
+T.C. = O(n + m)
 S.C. = O(n * m)
 */
 
