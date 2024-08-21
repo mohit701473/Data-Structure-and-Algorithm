@@ -1,0 +1,6 @@
+(1) When u should use the Trie data structure ?
+Ans. => If questions come up with all/some of the following 
+requirements then u can think about the Trie Data Structure.
+    (i) Storing or inserting words
+    (ii) Searching  word/string.
+    (iii) Searching word based on the prefix word/string.
