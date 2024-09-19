@@ -1,0 +1,7 @@
+(1) Backtracking
+    (I) The simple meaning of backtracking is that while coming from recursion u r doing something
+    (II) Mostly used in the matrix kind of problems
+    (III) Problems in which u ahve a matrix and u have to explore all the path kind of stuff
+    (IV) Size of the matrix is small -> 1 <= m, n <= 6
+    Example: -> https://leetcode.com/problems/word-search/description/
+    Why can't we use backtracking in (https://leetcode.com/problems/find-a-safe-walk-through-a-grid/description/) this

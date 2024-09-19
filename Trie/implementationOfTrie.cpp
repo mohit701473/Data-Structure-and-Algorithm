@@ -62,6 +62,10 @@ bool startsWith(TrieNode* head, string prefix) {
 
 int main() {
     TrieNode* head = new TrieNode();
+
+    int x;
+    cout << "enter x: ";
+    cin >> x;
     
     insert(head, "apple");
     insert(head, "apps");
