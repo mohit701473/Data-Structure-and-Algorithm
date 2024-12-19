@@ -1,0 +1,31 @@
+m = 10 ^ 9 + 7
+
+(1) a + b => (a + b) % m
+(2) a - b => (a - b + m) % m 
+(3) a * b => (a * b) % m or ((a % m) * (b % m)) % m
+(4) (a / b) % m => (a * (b) ^ (m-2)) % m
+(5) A^B % m => (I) if >>> A i.e. value of A is large and it can be bigger then mod value
+                then u can do this.
+                (A^B) % m => ((A%m) * (A%m) * (A%m)) % m 
+                I mean u can run a loop and for each itration u can multiply by and take mod
+
+                (II) if >>> B then just do this and it can be proved in farmet little theoremf
+                (A^B) % m => A^(B % (m-1)) 
+
+Imp Points
+(I) When we subtracrt two number and we have to find mod also so in that case it might 
+    be possible that subtraction can be negative and if we take mod of negative number 
+    then it will give us a negative number so to avoid this problem we always add mod 
+    with subtraction but keep in mind one thing if a and b r in the rage of 10^18 i.e.
+    a <= 10^18 and b <= 10^8 and ur m = 10^9 + 7 so in this case might be possible that 
+    after ading mod u also get the negative value so handle those cases properly
+
+(II) In multiplication if the range is such that a <= 10^18 and b <= 10^18 then first u
+    have to make sure a and b should be less then mod m for that before multiplication take
+    mod of a and b such that 
+    a * b => ((a % m) * (b * m)) % m
+
+(III) In division u can't do direct division then mod and for division u have to find fisrt 
+    multiplicative invers and then u can perform mod. But if ur mod m is prime number then u
+    can do this way
+    (a / b) % m => (a * (b)^(m-2)) % m
