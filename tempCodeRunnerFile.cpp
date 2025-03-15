@@ -1,114 +1,119 @@
+// #include <iostream>
+// #include <vector>
+// #include <algorithm>
+// using namespace std;
+
+// int minProjects(vector<int> errorScore, int compP, int othQ) {
+//     int n = errorScore.size();
+//     int projects = 0;
+
+//     sort(errorScore.rbegin(), errorScore.rend());
+
+//     while (errorScore[0] > 0) { // Continue until all error scores become zero
+//         errorScore[0] -= compP;
+
+//         for (int i = 1; i < n; i++) {
+//             if (errorScore[i] > 0) {
+//                 errorScore[i] -= othQ;
+//             }
+//         }
+
+//         projects++;
+
+//         sort(errorScore.rbegin(), errorScore.rend());
+//     }
+
+//     return projects;
+// }
+
+// int main() {
+//     // Input for errorScore_size
+//     int errorScore_size;
+//     cin >> errorScore_size;
+
+//     vector<int> errorScore(errorScore_size);
+
+//     // Input for the error scores of team members
+//     for (int i = 0; i < errorScore_size; i++) {
+//         cin >> errorScore[i];
+//     }
+
+//     // Input for compP and othQ
+//     int compP, othQ;
+//     cin >> compP >> othQ;
+
+//     // Calculate the minimum number of projects
+//     int result = minProjects(errorScore, compP, othQ);
+
+//     // Output the result
+//     cout << result << endl;
+
+//     return 0;
+// }
+
+
+#include <iostream>
+#include <vector>
+#include <queue>
 #include <bits/stdc++.h>
 using namespace std;
 
-// Function to calculate the minimum number of coins required
-int minimumCoins(int amount, int n, int arr[]) {
-    // Sort the coin denominations in descending order
-    sort(arr, arr + n, greater<int>());
-    
-    int coinCount = 0; // To count the minimum coins required
-    
-    for (int i = 0; i < n; i++) {
-        // Use as many coins of the current denomination as possible
-        if (amount >= arr[i]) {
-            coinCount += amount / arr[i]; // Add the number of coins used
-            amount %= arr[i]; // Reduce the amount by the coins' total value
-        }
-        
-        // If amount becomes zero, we found the answer
-        if (amount == 0) break;
-    }
-    
-    return coinCount;
-}
-
-int minCoinsUtil(int coins[], int m, int sum, int* dp)
-{
-    if (sum == 0)
-        return 0;
-
-    if (dp[sum] != -1)
-        return dp[sum];
-
-    int res = INT_MAX;
-    for (int i = 0; i < m; i++) {
-        if (coins[i] <= sum) {
-            int sub_res = minCoinsUtil(coins, m, sum - coins[i], dp);
-            if (sub_res != INT_MAX && sub_res + 1 < res)
-                res = sub_res + 1;
+int minProjects(vector<int> errorScore, int compP, int othQ) {
+    priority_queue<int> maxHeap;
+    for (int score : errorScore) {
+        if (score > 0) {
+            maxHeap.push(score);
         }
     }
 
-    dp[sum] = res;
+    int projects = 0;
+    while (!maxHeap.empty()) {
+        int topScore = maxHeap.top();
+        maxHeap.pop();
+        topScore -= compP;
+        vector<int> temp; // Temporarily store updated scores
+        while (!maxHeap.empty()) {
+            int otherScore = maxHeap.top();
+            maxHeap.pop();
+            if (otherScore > othQ) {
+                temp.push_back(otherScore - othQ);
+            }
+        }
 
-    return res;
-}
+        if (topScore > 0) {
+            maxHeap.push(topScore);
+        }
+        for (int newScore : temp) {
+            maxHeap.push(newScore);
+        }
 
+        projects++;
+    }
 
-int minCoins(int coins[], int m, int sum)
-{
-    int* dp = new int[sum + 1];
-    memset(dp, -1, sizeof(int) * (sum + 1)); // Initialize DP table with -1
-
-    return minCoinsUtil(coins, m, sum, dp);
+    return projects;
 }
 
 int main() {
-    int amount, n;
-    
-    // Input the amount
-    cout << "Enter the amount: ";
-    cin >> amount;
-    
-    // Input the number of coin types
-    cout << "Enter the number of different coins: ";
-    cin >> n;
-    
-    int arr[n];
-    
-    // Input the coin denominations
-    cout << "Enter the coin denominations: ";
-    for (int i = 0; i < n; i++) {
-        cin >> arr[i];
+    // Input for errorScore_size
+    int errorScore_size;
+    cin >> errorScore_size;
+
+    vector<int> errorScore(errorScore_size);
+
+    // Input for the error scores of team members
+    for (int i = 0; i < errorScore_size; i++) {
+        cin >> errorScore[i];
     }
-    
-    // Call the function and display the result
-    // int result = minimumCoins(amount, n, arr);
-    int result = minCoins(arr, n, amount);
-    cout << "Minimum number of coins required: " << result << endl;
+
+    // Input for compP and othQ
+    int compP, othQ;
+    cin >> compP >> othQ;
+
+    // Calculate the minimum number of projects
+    int result = minProjects(errorScore, compP, othQ);
+
+    // Output the result
+    cout << result << endl;
 
     return 0;
 }
-
-
-
-// int minCoinsUtil(int coins[], int m, int sum, int* dp)
-// {
-//     if (sum == 0)
-//         return 0;
-
-//     if (dp[sum] != -1)
-//         return dp[sum];
-
-//     int res = INT_MAX;
-//     for (int i = 0; i < m; i++) {
-//         if (coins[i] <= sum) {
-//             int sub_res = minCoinsUtil(coins, m, sum - coins[i], dp);
-//             if (sub_res != INT_MAX && sub_res + 1 < res)
-//                 res = sub_res + 1;
-//         }
-//     }
-
-//     dp[sum] = res;
-
-//     return res;
-// }
-
-
-// int minCoins(int coins[], int m, int sum)
-// {
-//     int* dp = new int[sum + 1];
-//     memset(dp, -1, sizeof(int) * (sum + 1)); // Initialize DP table with -1
-
-//     return minCoinsUtil(coins, m, sum, dp);
-// }
